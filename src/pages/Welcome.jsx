@@ -15,7 +15,7 @@ export default () => (
   <PageHeaderWrapper>
     <Card>
       <Alert
-        message="umi ui 现已发布，点击右下角 umi 图标即可使用"
+        message="业务功能开发中..."
         type="success"
         showIcon
         banner

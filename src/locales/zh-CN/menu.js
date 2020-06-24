@@ -1,5 +1,5 @@
 export default {
-  'menu.welcome': '欢迎',
+  'menu.Welcome': '最新动态',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.admin': '管理页',
@@ -49,4 +49,9 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.funds': '基金',
+  'menu.funds.list': '列表',
+  'menu.category': '基金分类',
+  'menu.category.industry': '行业类别',
+  'menu.category.broad': '宽基类别',
 };
