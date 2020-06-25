@@ -2,31 +2,36 @@ import React, { Component } from 'react';
 import { Table, Space, message, Popconfirm } from 'antd';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { deleteIndustry } from '@/services/category';
-import IndustryAdd from "../components/Add";
+import { deleteSector } from '@/services/sector';
+import SectorAdd from "./components/Add";
 
-@connect(({ industryListModel, loading }) => ({
-    industryListModel,
-    loading: loading.models.industryListModel,
+@connect(({ sectorList, loading }) => ({
+    sectorList,
+    loading: loading.models.sectorList,
 }))
 
-class IndustryList extends Component {
+class SectorIndex extends Component {
     // 定义表格的colum
     columns = [
         {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
+            title: '#',
+            dataIndex: 'Id',
+            key: 'Id',
         },
         {
             title: '名称',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'Name',
+            key: 'Name',
         },
         {
             title: '描述',
-            dataIndex: 'desc',
-            key: 'desc',
+            dataIndex: 'Intro',
+            key: 'Intro',
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'Created',
+            key: 'Created',
         },
         {
             title: '操作',
@@ -34,7 +39,7 @@ class IndustryList extends Component {
             key: '',
             render: (text, item) => (
                 <Space size="middle">
-                    <Popconfirm title={`确定删除【${item.name}】？`} onConfirm={() => this.onDelete(item.id)}>
+                    <Popconfirm key={item.Id} title={`确定删除【${item.Name}】？`} onConfirm={() => this.onDelete(item.Id)}>
                         <a>删除</a>
                     </Popconfirm>
                 </Space>
@@ -45,12 +50,12 @@ class IndustryList extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch({
-            type: 'industryListModel/fetch',
+            type: 'sectorList/fetch',
         });
     };
 
     onDelete = (id) => {
-        deleteIndustry({ id }).then(({ status }) => {
+        deleteSector({ id }).then(({ status }) => {
             if (status === 'ok') {
                 if (this.props.reload) {
                     this.props.reload();
@@ -63,16 +68,17 @@ class IndustryList extends Component {
 
     render() {
         const {
-            industryListModel: { list }, // {list}对应model中state中的list
+            sectorList: { list },
             loading,
         } = this.props;
 
         return (
             <PageHeaderWrapper>
-                <IndustryAdd success={this.reload} />
-                <Table loading={loading} dataSource={list} columns={this.columns} />
+
+                <Table loading={loading} dataSource={list} columns={this.columns} rowKey={(record, index) => index} />
             </PageHeaderWrapper>
         );
     }
-}
-export default IndustryList;
+};
+
+export default SectorIndex;

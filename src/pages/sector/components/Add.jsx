@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, Form, Input, Space, message } from 'antd';
-import { saveIndustry } from '@/services/category';
+import { saveSector } from '@/services/sector';
 
 
 const layout = {
@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: { span: 18 },
 };
 
-class IndustryAdd extends React.Component {
+class SectorAdd extends React.Component {
   state = { visible: false };
 
   formRef = React.createRef();
@@ -23,10 +23,10 @@ class IndustryAdd extends React.Component {
     this.formRef.current.submit();
   };
 
-  onFinish = ({ industry_name, industry_desc }) => {
-    saveIndustry({
-      industry_name,
-      industry_desc,
+  onFinish = ({ sector_name, sector_intro }) => {
+    saveSector({
+      sector_name,
+      sector_intro
     }).then(({ status }) => {
       if (status === 'ok') {
         this.formRef.current.resetFields();
@@ -67,11 +67,11 @@ class IndustryAdd extends React.Component {
           okText="确定"
         >
           <Form {...layout} ref={this.formRef} onFinish={this.onFinish}>
-            <Form.Item name="industry_name" label="行业名称" rules={[{ required: true, min: 3, max: 50 }]}>
-              <Input placeholder="行业名称" />
+            <Form.Item name="sector_name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>
+              <Input placeholder="板块名称" />
             </Form.Item>
-            <Form.Item name="industry_desc" label="行业描述" rules={[{ required: true, min: 3, max: 100 }]}>
-              <Input.TextArea placeholder="行业描述" />
+            <Form.Item name="sector_intro" label="板块描述" rules={[{ required: true, min: 3, max: 100 }]}>
+              <Input.TextArea placeholder="板块描述" />
             </Form.Item>
           </Form>
         </Modal>
@@ -80,4 +80,4 @@ class IndustryAdd extends React.Component {
   }
 }
 
-export default IndustryAdd;
+export default SectorAdd;

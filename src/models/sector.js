@@ -1,15 +1,15 @@
-import { queryIndustry } from '@/services/category';
+import { querySectors } from '@/services/sector';
 
 const Model = {
-    namespace: 'industryListModel',
+    namespace: 'sectorList',
 
     state: {
         list: [],
     },
 
     effects: {
-        * fetch({ payload }, { call, put }) {//这个是界面调取接口的名称
-            const response = yield call(queryIndustry, payload);//这个testApi就是刚才引入的
+        * fetch({ payload }, { call, put }) {
+            const response = yield call(querySectors, payload);
             yield put({
                 type: 'queryList',
                 payload: response,
@@ -24,7 +24,7 @@ const Model = {
                 list: action.payload,
             };
         },
-    }
+    },
 };
 
 export default Model;

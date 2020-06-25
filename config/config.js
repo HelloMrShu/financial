@@ -59,37 +59,19 @@ export default defineConfig({
               path: '/funds',
               name: 'funds',
               icon: 'crown',
-              routes: [
-                {
-                  path: '/funds/list',
-                  name: 'list',
-                  icon: 'smile',
-                  component: './funds/list',
-                  authority: ['admin'],
-                },
-              ],
+              component: './funds'
             },
             {
-              path: '/category',
-              name: 'category',
+              path: '/sector',
+              name: 'sector',
               icon: 'crown',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/category/industry',
-                  name: 'industry',
-                  icon: 'smile',
-                  component: './category/industry',
-                  authority: ['admin'],
-                },
-                {
-                  path: '/category/broad',
-                  name: 'broad',
-                  icon: 'smile',
-                  component: './category/broad',
-                  authority: ['admin'],
-                },
-              ],
+              component: './sector'
+            },
+            {
+              path: '/favor',
+              name: 'favor',
+              icon: 'crown',
+              component: './favor'
             },
             {
               name: 'list.table-list',

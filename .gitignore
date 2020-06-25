@@ -7,7 +7,7 @@
 _roadhog-api-doc
 
 # proxy
-/config/proxy.js
+# /config/proxy.js
 
 # production
 /dist
