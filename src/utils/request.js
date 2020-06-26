@@ -45,6 +45,12 @@ const errorHandler = error => {
 
   return response;
 };
+
+const parseHandler = (res) => {
+  if (res && res.code == 200) {
+    return res.data;
+  }
+}
 /**
  * 配置request请求时的默认参数
  */
@@ -53,5 +59,6 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  // parseHandler,
 });
 export default request;

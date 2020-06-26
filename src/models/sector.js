@@ -4,6 +4,7 @@ const Model = {
     namespace: 'sectorList',
 
     state: {
+        total: 0,
         list: [],
     },
 
@@ -19,9 +20,11 @@ const Model = {
 
     reducers: {
         queryList(state, action) {
+            const { code, data, total } = action.payload;
             return {
                 ...state,
-                list: action.payload,
+                list: data,
+                total:total,
             };
         },
     },

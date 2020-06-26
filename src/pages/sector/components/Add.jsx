@@ -25,10 +25,10 @@ class SectorAdd extends React.Component {
 
   onFinish = ({ sector_name, sector_intro }) => {
     saveSector({
-      sector_name,
-      sector_intro
-    }).then(({ status }) => {
-      if (status === 'ok') {
+      name: sector_name,
+      intro: sector_intro
+    }).then(({ code }) => {
+      if (code == '200') {
         this.formRef.current.resetFields();
         this.setState({
           visible: false,

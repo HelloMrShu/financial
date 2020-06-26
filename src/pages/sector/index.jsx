@@ -67,6 +67,7 @@ class SectorIndex extends Component {
     };
 
     render() {
+        // const { total, list } = this.props;
         const {
             sectorList: { list },
             loading,
@@ -74,8 +75,8 @@ class SectorIndex extends Component {
 
         return (
             <PageHeaderWrapper>
-
-                <Table loading={loading} dataSource={list} columns={this.columns} rowKey={(record, index) => index} />
+                <SectorAdd success={this.reload} />
+                <Table dataSource={list} columns={this.columns} rowKey={(record, index) => index} />
             </PageHeaderWrapper>
         );
     }
