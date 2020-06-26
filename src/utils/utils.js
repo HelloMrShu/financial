@@ -58,11 +58,3 @@ export const getRouteAuthority = (path, routeData) => {
   });
   return authorities;
 };
-
-export const parseResponse = (response) => {
-    if (response.code == 200) {
-      return response.data;
-    } else {
-      message.error('服务器出错了，请联系管理员！');
-    }
-};

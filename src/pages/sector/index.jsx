@@ -56,23 +56,24 @@ class SectorIndex extends Component {
     };
 
     onChangePage = (current, pageSize) => {
-        dispatch({
-            type: "sectorList/fetch",
-            payload: {
-                page:current,
-                page_size:pageSize
-            }
-        })
-        // const { dispatch } = this.props;
+        const { dispatch } = this.props;
+            dispatch({
+              type: 'sectorList/fetch',
+              payload: {
+                page: current,
+                page_size: pageSize,
+              },  
+            }); 
+
         // const params = {
         //   page: current,
-        //   page_size: pageSize
+        //   page_size: pageSize,
         // };
         // dispatch({
         //   type: 'sectorList/fetch',
         //   payload: params,
         // })
-      };
+      }
 
     onDelete = (id) => {
         deleteSector({ id }).then(({ status }) => {
@@ -98,7 +99,7 @@ class SectorIndex extends Component {
             total: pagination.total,
             showSizeChanger: true,
             showTitle: true,
-            onChange: (current) => this.onChangePage(current, pagination.pageSize),
+            onChange: (current) => this.onChangePage(current,pagination.pageSize),
         };
 
         return (

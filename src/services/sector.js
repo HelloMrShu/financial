@@ -1,12 +1,9 @@
 import request from '@/utils/request';
 import parseResponse from '@/utils/utils';
+import { stringify } from 'qs'
 
 export async function querySectors(params) {
-	console.log(params);
-    return request('/api/sector/list', {
-    	method:'GET',
-    	data:params
-    });	    
+    return request(`/api/sector/list?${stringify(params)}`);
 }
 
 export async function saveSector(params) {
