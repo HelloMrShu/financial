@@ -1,12 +1,14 @@
 import React from 'react';
 import { Button, Modal, Form, Input, Space, message } from 'antd';
 import { saveSector } from '@/services/sector';
-
+import {connect} from 'dva'
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 18 },
 };
+
+@connect(() => ({}))
 
 class SectorAdd extends React.Component {
   state = { visible: false };
@@ -23,6 +25,17 @@ class SectorAdd extends React.Component {
     this.formRef.current.submit();
   };
 
+  loadData() {
+      const { dispatch } = this.props;
+      dispatch({
+          type: 'sectorList/fetch',
+          payload: {
+              page: 1,
+              page_size: 10
+          }
+      });
+  };
+
   onFinish = ({ sector_name, sector_intro }) => {
     saveSector({
       name: sector_name,
@@ -34,11 +47,10 @@ class SectorAdd extends React.Component {
           visible: false,
         });
 
-        if (this.props.success) {
-          this.props.success();
-        }
+        this.loadData();
+        
       } else {
-        message.error('服务器出错了，请联系管理员！');
+        message.error('服务器异常，请联系管理员！');
       }
     });
   };

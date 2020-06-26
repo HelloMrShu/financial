@@ -18,11 +18,6 @@ class SectorIndex extends Component {
     // 定义表格的colum
     columns = [
         {
-            title: '#',
-            dataIndex: 'Id',
-            key: 'Id',
-        },
-        {
             title: '名称',
             dataIndex: 'Name',
             key: 'Name',
