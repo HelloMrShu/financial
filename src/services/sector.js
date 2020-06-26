@@ -21,5 +21,9 @@ export async function deleteSector(params) {
 	return request('/api/sector/delete', {
         method: 'POST',
         data: params,
+        headers: {
+	      'Content-Type': 'application/x-www-form-urlencoded',
+	    },
+	    requestType: 'form',
     });
 }

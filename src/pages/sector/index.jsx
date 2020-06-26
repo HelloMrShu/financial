@@ -12,6 +12,9 @@ import SectorAdd from "./components/Add";
 
 class SectorIndex extends Component {
 
+    current = 1
+    pageSize = 10
+
     // 定义表格的colum
     columns = [
         {
@@ -48,39 +51,29 @@ class SectorIndex extends Component {
         },
     ];
 
-    componentDidMount() {
+    loadData(current, pageSize) {
         const { dispatch } = this.props;
         dispatch({
-            type: 'sectorList/fetch'
+            type: 'sectorList/fetch',
+            payload: {
+                page: current,
+                page_size: pageSize,
+            }, 
         });
+    }
+
+    componentDidMount() {
+        this.loadData(this.current, this.pageSize);
     };
 
     onChangePage = (current, pageSize) => {
-        const { dispatch } = this.props;
-            dispatch({
-              type: 'sectorList/fetch',
-              payload: {
-                page: current,
-                page_size: pageSize,
-              },  
-            }); 
-
-        // const params = {
-        //   page: current,
-        //   page_size: pageSize,
-        // };
-        // dispatch({
-        //   type: 'sectorList/fetch',
-        //   payload: params,
-        // })
-      }
+        this.loadData(current, pageSize);
+    }
 
     onDelete = (id) => {
-        deleteSector({ id }).then(({ status }) => {
-            if (status === 'ok') {
-                if (this.props.reload) {
-                    this.props.reload();
-                }
+        deleteSector({ id }).then(({ code }) => {
+            if (code == '200') {
+                this.loadData(this.current, this.pageSize);
             } else {
                 message.error('服务器数据删除异常');
             }
