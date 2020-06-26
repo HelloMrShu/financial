@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Space, message, Popconfirm } from 'antd';
+import { Table, Space, message, Popconfirm, Pagination } from 'antd';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { deleteSector } from '@/services/sector';
@@ -11,6 +11,7 @@ import SectorAdd from "./components/Add";
 }))
 
 class SectorIndex extends Component {
+
     // 定义表格的colum
     columns = [
         {
@@ -50,9 +51,28 @@ class SectorIndex extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch({
-            type: 'sectorList/fetch',
+            type: 'sectorList/fetch'
         });
     };
+
+    onChangePage = (current, pageSize) => {
+        dispatch({
+            type: "sectorList/fetch",
+            payload: {
+                page:current,
+                page_size:pageSize
+            }
+        })
+        // const { dispatch } = this.props;
+        // const params = {
+        //   page: current,
+        //   page_size: pageSize
+        // };
+        // dispatch({
+        //   type: 'sectorList/fetch',
+        //   payload: params,
+        // })
+      };
 
     onDelete = (id) => {
         deleteSector({ id }).then(({ status }) => {
@@ -67,16 +87,30 @@ class SectorIndex extends Component {
     };
 
     render() {
-        // const { total, list } = this.props;
         const {
-            sectorList: { list },
+            sectorList: { list, pagination },
             loading,
         } = this.props;
+
+        let paginationProps = {
+            pageSize: pagination.pageSize,
+            current: pagination.current,
+            total: pagination.total,
+            showSizeChanger: true,
+            showTitle: true,
+            onChange: (current) => this.onChangePage(current, pagination.pageSize),
+        };
 
         return (
             <PageHeaderWrapper>
                 <SectorAdd success={this.reload} />
-                <Table dataSource={list} columns={this.columns} rowKey={(record, index) => index} />
+                <Table
+                    loading={loading}
+                    dataSource={list}
+                    columns={this.columns}
+                    rowKey={(record, index) => index}
+                    pagination={paginationProps}
+                 />
             </PageHeaderWrapper>
         );
     }

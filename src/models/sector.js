@@ -6,6 +6,7 @@ const Model = {
     state: {
         total: 0,
         list: [],
+        pagination: []
     },
 
     effects: {
@@ -20,11 +21,11 @@ const Model = {
 
     reducers: {
         queryList(state, action) {
-            const { code, data, total } = action.payload;
+            const { code, data, pagination } = action.payload;
             return {
                 ...state,
                 list: data,
-                total:total,
+                pagination: pagination,
             };
         },
     },
