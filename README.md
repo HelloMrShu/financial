@@ -1,4 +1,4 @@
-# Ant Design Pro
+## Financial
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
@@ -17,19 +17,19 @@ Ant Design Pro provides some useful script to help you quick start and build wit
 
 Scripts provided in `package.json`. It's safe to modify or add additional script:
 
-### Start project
+## Start project
 
 ```bash
 npm start
 ```
 
-### Build project
+## Build project
 
 ```bash
 npm run build
 ```
 
-### Check code style
+## Check code style
 
 ```bash
 npm run lint
@@ -41,7 +41,7 @@ You can also use script to auto fix some lint error:
 npm run lint:fix
 ```
 
-### Test code
+## Test code
 
 ```bash
 npm test
