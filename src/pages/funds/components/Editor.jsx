@@ -10,7 +10,7 @@ const layout = {
 
 @connect(() => ({}))
 
-class SectorAdd extends React.Component {
+class SectorEditor extends React.Component {
   state = { visible: false };
 
   formRef = React.createRef();
@@ -36,8 +36,9 @@ class SectorAdd extends React.Component {
       });
   };
 
-  onFinish = ({ sector_name, sector_intro }) => {
+  onFinish = ({sector_id, sector_name, sector_intro }) => {
     saveSector({
+      id: sector_id,
       name: sector_name,
       intro: sector_intro
     }).then(({ code }) => {
@@ -67,7 +68,7 @@ class SectorAdd extends React.Component {
       <div>
         <Space style={{ marginBottom: 10 }}>
           <Button type="primary" onClick={this.showModal}>
-            新建
+            编辑
           </Button>
         </Space>
         <Modal
@@ -79,12 +80,18 @@ class SectorAdd extends React.Component {
           okText="确定"
         >
           <Form {...layout} ref={this.formRef} onFinish={this.onFinish}>
+            <Form.Item name="id" noStyle>
+              <Input type="hidden" />
+            </Form.Item>
+
             <Form.Item name="sector_name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>
               <Input placeholder="板块名称" />
             </Form.Item>
+
             <Form.Item name="sector_intro" label="板块描述" rules={[{ required: true, min: 3, max: 100 }]}>
               <Input.TextArea placeholder="板块描述" />
             </Form.Item>
+
           </Form>
         </Modal>
       </div>
@@ -92,4 +99,4 @@ class SectorAdd extends React.Component {
   }
 }
 
-export default SectorAdd;
+export default SectorEditor;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, Form, Input, Space, message } from 'antd';
-import { saveSector } from '@/services/sector';
+import { saveFund } from '@/services/fund';
 import { connect } from 'dva'
 
 const layout = {
@@ -10,7 +10,7 @@ const layout = {
 
 @connect(() => ({}))
 
-class SectorAdd extends React.Component {
+class FundAdd extends React.Component {
   state = { visible: false };
 
   formRef = React.createRef();
@@ -28,7 +28,7 @@ class SectorAdd extends React.Component {
   loadData() {
       const { dispatch } = this.props;
       dispatch({
-          type: 'sectorList/fetch',
+          type: 'fundList/fetch',
           payload: {
               page: 1,
               page_size: 10
@@ -36,10 +36,10 @@ class SectorAdd extends React.Component {
       });
   };
 
-  onFinish = ({ sector_name, sector_intro }) => {
+  onFinish = ({ fund_name, fund_intro }) => {
     saveSector({
-      name: sector_name,
-      intro: sector_intro
+      name: fund_name,
+      intro: fund_intro
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -79,11 +79,11 @@ class SectorAdd extends React.Component {
           okText="确定"
         >
           <Form {...layout} ref={this.formRef} onFinish={this.onFinish}>
-            <Form.Item name="sector_name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>
-              <Input placeholder="板块名称" />
+            <Form.Item name="fund_name" label="基金名称" rules={[{ required: true, min: 3, max: 50 }]}>
+              <Input placeholder="基金名称" />
             </Form.Item>
-            <Form.Item name="sector_intro" label="板块描述" rules={[{ required: true, min: 3, max: 100 }]}>
-              <Input.TextArea placeholder="板块描述" />
+            <Form.Item name="fund_intro" label="基金描述" rules={[{ required: true, min: 3, max: 100 }]}>
+              <Input.TextArea placeholder="基金描述" />
             </Form.Item>
           </Form>
         </Modal>
@@ -92,4 +92,4 @@ class SectorAdd extends React.Component {
   }
 }
 
-export default SectorAdd;
+export default FundAdd;
