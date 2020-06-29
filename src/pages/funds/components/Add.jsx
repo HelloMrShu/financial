@@ -37,7 +37,7 @@ class FundAdd extends React.Component {
   };
 
   onFinish = ({ fund_name, fund_intro }) => {
-    saveSector({
+    saveFund({
       name: fund_name,
       intro: fund_intro
     }).then(({ code }) => {

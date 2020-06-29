@@ -1,5 +1,4 @@
 import request from '@/utils/request';
-import parseResponse from '@/utils/utils';
 import { stringify } from 'qs'
 
 export async function queryFund(params) {
