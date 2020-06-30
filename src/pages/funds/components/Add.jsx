@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Form, Input, Space, message } from 'antd';
+import { Button, Modal, Form, Input, Space, message, Select } from 'antd';
 import { saveFund } from '@/services/fund';
 import { connect } from 'dva'
 
@@ -36,10 +36,12 @@ class FundAdd extends React.Component {
       });
   };
 
-  onFinish = ({ fund_name, fund_intro }) => {
+  onFinish = ({ fund_name, fund_intro, fund_type, fund_level }) => {
     saveFund({
       name: fund_name,
-      intro: fund_intro
+      intro: fund_intro,
+      type: fund_type,
+      level: fund_level
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -79,12 +81,44 @@ class FundAdd extends React.Component {
           okText="确定"
         >
           <Form {...layout} ref={this.formRef} onFinish={this.onFinish}>
+
             <Form.Item name="fund_name" label="基金名称" rules={[{ required: true, min: 3, max: 50 }]}>
               <Input placeholder="基金名称" />
             </Form.Item>
+
             <Form.Item name="fund_intro" label="基金描述" rules={[{ required: true, min: 3, max: 100 }]}>
               <Input.TextArea placeholder="基金描述" />
             </Form.Item>
+
+            <Form.Item
+              name="fund_type"
+              id="select"
+              label="基金类型"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="请选择" style={{ width: 150 }}>
+                <Option value="指数型">指数型</Option>
+                <Option value="混合型">混合型</Option>
+                <Option value="股票型">股票型</Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="fund_level"
+              id="select"
+              label="晨星评级"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="0" style={{ width: 150 }}>
+                <Option value="0">无</Option>
+                <Option value="1">★</Option>
+                <Option value="2">★★</Option>
+                <Option value="3">★★★</Option>
+                <Option value="4">★★★★</Option>
+                <Option value="5">★★★★★</Option>
+              </Select>
+            </Form.Item>
+
           </Form>
         </Modal>
       </div>
