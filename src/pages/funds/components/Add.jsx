@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Modal, Form, Input, Space, message, Select } from 'antd';
 import { saveFund } from '@/services/fund';
 import { connect } from 'dva'
+import SectorSelection from "./SectorDropdown";
 
 const layout = {
   labelCol: { span: 4 },
@@ -36,12 +37,13 @@ class FundAdd extends React.Component {
       });
   };
 
-  onFinish = ({ fund_name, fund_intro, fund_type, fund_level }) => {
+  onFinish = ({ fund_name, fund_intro, fund_type, fund_level, sector_id }) => {
     saveFund({
       name: fund_name,
       intro: fund_intro,
       type: fund_type,
-      level: fund_level
+      level: fund_level,
+      sector_id: sector_id
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -118,6 +120,8 @@ class FundAdd extends React.Component {
                 <Option value="5">★★★★★</Option>
               </Select>
             </Form.Item>
+
+            <SectorSelection />
 
           </Form>
         </Modal>
