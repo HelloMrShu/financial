@@ -37,13 +37,17 @@ class FundAdd extends React.Component {
       });
   };
 
-  onFinish = ({ fund_name, fund_intro, fund_type, fund_level, sector_id }) => {
+  onFinish = ( data ) => {
     saveFund({
-      name: fund_name,
-      intro: fund_intro,
-      type: fund_type,
-      level: fund_level,
-      sector_id: sector_id
+      name: data.fund_name,
+      intro: data.fund_intro,
+      type: data.fund_type,
+      level: data.fund_level,
+      bid_rate: data.bid_rate,
+      sale_week_rate: data.sale_week_rate,
+      sale_month_rate: data.sale_month_rate,
+      sale_year_rate: data.sale_year_rate,
+      sector_id: data.sector_id
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -122,6 +126,65 @@ class FundAdd extends React.Component {
             </Form.Item>
 
             <SectorSelection />
+
+            <Form.Item
+              name="bid_rate"
+              id="select"
+              label="买入费率"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="0" style={{ width: 150 }}>
+                <Option value="0">0%</Option>
+                <Option value="0.06">0.06%</Option>
+                <Option value="0.08">0.08%</Option>
+                <Option value="0.10">0.10%</Option>
+                <Option value="0.12">0.12%</Option>
+                <Option value="0.15">0.15%</Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="sale_week_rate"
+              id="select"
+              label="七日卖出"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="1.5" style={{ width: 150 }}>
+                <Option value="1.5">1.5%</Option>
+                <Option value="1.0">1.0%</Option>
+                <Option value="0.75">0.75%</Option>
+                <Option value="0.50">0.05%</Option>
+                <Option value="0.25">0.25%</Option>
+                <Option value="0">0%</Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="sale_month_rate"
+              id="select"
+              label="月内卖出"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="0" style={{ width: 150 }}>
+                <Option value="1.0">1.0%</Option>
+                <Option value="0.75">0.75%</Option>
+                <Option value="0.50">0.05%</Option>
+                <Option value="0">0%</Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="sale_year_rate"
+              id="select"
+              label="年内卖出"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 14 }}>
+              <Select id="select" defaultValue="0" style={{ width: 150 }}>
+                <Option value="0">0%</Option>
+                <Option value="0.25">0.25%</Option>
+                <Option value="0.50">0.05%</Option>
+              </Select>
+            </Form.Item>
 
           </Form>
         </Modal>
