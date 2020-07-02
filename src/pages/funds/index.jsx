@@ -17,11 +17,6 @@ class FundIndex extends Component {
 
     // 定义表格的colum
     columns = [
-    	{
-            title: '基金ID',
-            dataIndex: 'Id',
-            key: 'Id',
-        },
         {
             title: '基金名称',
             dataIndex: 'Name',
@@ -39,11 +34,8 @@ class FundIndex extends Component {
         },
         {
             title: '评级',
-            dataIndex: 'Level',
-            key: 'Level',
-            render: (text, item) => (
-            	<span>***</span>
-            ),
+            dataIndex: 'Level_display',
+            key: 'Level_display'
         },
         {
             title: '描述',
