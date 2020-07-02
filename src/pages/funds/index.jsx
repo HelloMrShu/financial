@@ -29,8 +29,8 @@ class FundIndex extends Component {
         },
         {
             title: '板块',
-            dataIndex: 'Sector_id',
-            key: 'Sector_id',
+            dataIndex: 'Sector_name',
+            key: 'Sector_name',
         },
         {
             title: '评级',
