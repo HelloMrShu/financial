@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, Form, Input, Space, message } from 'antd';
-import { saveSector } from '@/services/sector';
+import { saveSector, querySectors } from '@/services/sector';
 import { connect } from 'dva'
 
 const layout = {
@@ -36,11 +36,11 @@ class SectorEditor extends React.Component {
       });
   };
 
-  onFinish = ({sector_id, sector_name, sector_intro }) => {
+  onFinish = ( data ) => {
     saveSector({
-      id: sector_id,
-      name: sector_name,
-      intro: sector_intro
+      id: data.Id,
+      name: data.Name,
+      intro: data.Intro
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -64,32 +64,47 @@ class SectorEditor extends React.Component {
   };
 
   render() {
+    const {sector, defaultValues, gDefaultValues} = this.props;
+
+    const current =
+      typeof defaultValues === 'object' && defaultValues.hasOwnProperty('type')
+        ? defaultValues.type
+        : '';
+    // 初始化表单数据
+    const initialValues = current
+      ? { ...gDefaultValues[current], ...defaultValues }
+      : defaultValues;
+
     return (
       <div>
-        <Space style={{ marginBottom: 10 }}>
-          <Button type="primary" onClick={this.showModal}>
-            编辑
-          </Button>
+        <Space>
+          <a onClick={this.showModal}>编辑</a>
         </Space>
         <Modal
           wrapClassName="addUserModal"
-          title="新建"
+          title="编辑"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           okText="确定"
         >
-          <Form {...layout} ref={this.formRef} onFinish={this.onFinish}>
-            <Form.Item name="id" noStyle>
-              <Input type="hidden" />
+
+          <Form {...layout}
+              ref={this.formRef}
+              onFinish={this.onFinish}
+              initialValues={sector}
+            >
+            
+            <Form.Item name="Id" noStyle>
+              <Input type="text" />
             </Form.Item>
 
-            <Form.Item name="sector_name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>
-              <Input placeholder="板块名称" />
+            <Form.Item name="Name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>
+              <Input placeholder="板块名称"/>
             </Form.Item>
 
-            <Form.Item name="sector_intro" label="板块描述" rules={[{ required: true, min: 3, max: 100 }]}>
-              <Input.TextArea placeholder="板块描述" />
+            <Form.Item name="Intro" label="板块描述" rules={[{ required: true, min: 3, max: 100 }]}>
+              <Input.TextArea placeholder="板块描述"/>
             </Form.Item>
 
           </Form>

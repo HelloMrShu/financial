@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Table, Space, message, Popconfirm, Pagination } from 'antd';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { deleteSector } from '@/services/sector';
+import { deleteSector, querySectors } from '@/services/sector';
 import SectorAdd from "./components/Add";
+import SectorEditor from "./components/Editor";
 
 @connect(({ sectorList, loading }) => ({
     sectorList,
@@ -12,8 +13,27 @@ import SectorAdd from "./components/Add";
 
 class SectorIndex extends Component {
 
-    current = 1
-    pageSize = 10
+    current = 1;
+    pageSize = 10;
+    firstShowEditor = false;
+
+    state = {
+        showEditor: false,
+        sector: {},
+    };
+
+    handleEdit = (item, e) => {
+        e.preventDefault();
+        
+        if (!this.firstShowEditor) {
+            this.firstShowEditor = true;
+        }
+
+        this.setState({
+            showEditor: true,
+            sector: item,
+        });
+    };
 
     // 定义表格的colum
     columns = [
@@ -38,7 +58,17 @@ class SectorIndex extends Component {
             key: '',
             render: (text, item) => (
                 <Space size="middle">
-                    <Popconfirm key={item.Id} title={`确定删除【${item.Name}】？`} onConfirm={() => this.onDelete(item.Id)}>
+                    <SectorEditor
+                        sector={item || {}}
+                        onSuccess={() => {
+                          this.reload();
+                        }}
+                    />
+                    <Popconfirm
+                        key={item.Id}
+                        title={`确定删除【${item.Name}】？`}
+                        onConfirm={() => this.onDelete(item.Id)}
+                        >
                         <a>删除</a>
                     </Popconfirm>
                 </Space>
@@ -94,6 +124,7 @@ class SectorIndex extends Component {
             <PageHeaderWrapper>
                 <SectorAdd success={this.reload} />
                 <Table
+                    bordered
                     loading={loading}
                     dataSource={list}
                     columns={this.columns}

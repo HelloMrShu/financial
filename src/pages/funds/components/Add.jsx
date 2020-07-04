@@ -169,6 +169,7 @@ class FundAdd extends React.Component {
                 <Option value="1.0">1.0%</Option>
                 <Option value="0.75">0.75%</Option>
                 <Option value="0.50">0.50%</Option>
+                <Option value="0.10">0.10%</Option>
                 <Option value="0">0%</Option>
               </Select>
             </Form.Item>
