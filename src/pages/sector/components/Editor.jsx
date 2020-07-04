@@ -36,6 +36,15 @@ class SectorEditor extends React.Component {
       });
   };
 
+  componentDidUpdate() {
+    const { visible } = this.props;
+
+    // 只需对话框显示时才需要重置表单
+    if (!visible && this.formRef.current) {
+      this.formRef.current.resetFields();
+    }
+  }
+
   onFinish = ( data ) => {
     saveSector({
       id: data.Id,
@@ -64,16 +73,8 @@ class SectorEditor extends React.Component {
   };
 
   render() {
-    const {sector, defaultValues, gDefaultValues} = this.props;
-
-    const current =
-      typeof defaultValues === 'object' && defaultValues.hasOwnProperty('type')
-        ? defaultValues.type
-        : '';
-    // 初始化表单数据
-    const initialValues = current
-      ? { ...gDefaultValues[current], ...defaultValues }
-      : defaultValues;
+    console.log(this.props);
+    const {sector} = this.props;
 
     return (
       <div>
