@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button, Modal, Form, Input, Space, message } from 'antd';
-import { saveSector, querySectors } from '@/services/sector';
+import React, { Component } from 'react';
+import { Modal, Form, Input, Space, message } from 'antd';
+import { saveSector } from '@/services/sector';
 import { connect } from 'dva'
 
 const layout = {
@@ -10,7 +10,7 @@ const layout = {
 
 @connect(() => ({}))
 
-class SectorEditor extends React.Component {
+class SectorEditor extends Component {
   state = { visible: false };
 
   formRef = React.createRef();
@@ -73,7 +73,6 @@ class SectorEditor extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const {sector} = this.props;
 
     return (
@@ -97,7 +96,7 @@ class SectorEditor extends React.Component {
             >
             
             <Form.Item name="Id" noStyle>
-              <Input type="text" />
+              <Input type="hidden" />
             </Form.Item>
 
             <Form.Item name="Name" label="板块名称" rules={[{ required: true, min: 3, max: 50 }]}>

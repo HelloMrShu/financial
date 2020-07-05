@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { deleteFund } from '@/services/fund';
 import FundAdd from "./components/Add";
+import FundEditor from "./components/Editor";
 
 @connect(({ fundList, loading }) => ({
     fundList,
@@ -14,6 +15,25 @@ class FundIndex extends Component {
 
     current = 1
     pageSize = 10
+    firstShowEditor = false;
+
+    state = {
+        showEditor: false,
+        sector: {},
+    };
+
+    handleEdit = (item, e) => {
+        e.preventDefault();
+        
+        if (!this.firstShowEditor) {
+            this.firstShowEditor = true;
+        }
+
+        this.setState({
+            showEditor: true,
+            sector: item,
+        });
+    };
 
     // 定义表格的colum
     columns = [
@@ -53,6 +73,12 @@ class FundIndex extends Component {
             key: '',
             render: (text, item) => (
                 <Space size="middle">
+                    <FundEditor
+                        fund={item || {}}
+                        onSuccess={() => {
+                          this.reload();
+                        }}
+                    />
                     <Popconfirm key={item.Id} title={`确定删除【${item.Name}】？`} onConfirm={() => this.onDelete(item.Id)}>
                         <a>删除</a>
                     </Popconfirm>
@@ -102,7 +128,7 @@ class FundIndex extends Component {
             total: pagination.total,
             showSizeChanger: true,
             showTitle: true,
-            onChange: (current) => this.onChangePage(current,pagination.pageSize),
+            onChange: (current) => this.onChangePage(current, this.pageSize),
         };
 
         return (
