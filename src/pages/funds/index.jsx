@@ -5,6 +5,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { deleteFund } from '@/services/fund';
 import FundAdd from "./components/Add";
 import FundEditor from "./components/Editor";
+import FundDetail from "./components/Detail";
 
 @connect(({ fundList, loading }) => ({
     fundList,
@@ -53,19 +54,9 @@ class FundIndex extends Component {
             key: 'Sector_name',
         },
         {
-            title: '评级',
-            dataIndex: 'Level_display',
-            key: 'Level_display'
-        },
-        {
-            title: '描述',
+            title: '简介',
             dataIndex: 'Intro',
             key: 'Intro',
-        },
-        {
-            title: '创建时间',
-            dataIndex: 'Created',
-            key: 'Created',
         },
         {
             title: '操作',
@@ -73,6 +64,12 @@ class FundIndex extends Component {
             key: '',
             render: (text, item) => (
                 <Space size="middle">
+                    <FundDetail
+                        fund={item || {}}
+                        onSuccess={() => {
+                          this.reload();
+                        }}
+                    />
                     <FundEditor
                         fund={item || {}}
                         onSuccess={() => {
