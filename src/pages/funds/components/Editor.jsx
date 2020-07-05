@@ -45,6 +45,7 @@ class FundEditor extends Component {
   }
 
   onFinish = ( data ) => {
+    console.log(data);
     saveFund({
       id: data.Id,
       name: data.Name,
@@ -55,7 +56,7 @@ class FundEditor extends Component {
       sale_week_rate: data.Sale_week_rate,
       sale_month_rate: data.Sale_month_rate,
       sale_year_rate: data.Sale_year_rate,
-      sector_id: data.sector_id
+      sector_id: data.Sector_id
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();

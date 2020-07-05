@@ -47,7 +47,7 @@ class FundAdd extends React.Component {
       sale_week_rate: data.sale_week_rate,
       sale_month_rate: data.sale_month_rate,
       sale_year_rate: data.sale_year_rate,
-      sector_id: data.sector_id
+      sector_id: data.Sector_id
     }).then(({ code }) => {
       if (code == '200') {
         this.formRef.current.resetFields();
@@ -102,7 +102,11 @@ class FundAdd extends React.Component {
               label="基金类型"
               labelCol={{ span: 4 }}
               wrapperCol={{ span: 14 }}>
-              <Select id="select" defaultValue="请选择" style={{ width: 150 }}>
+              <Select
+                id="select"
+                defaultValue="请选择"
+                style={{ width: 150 }}
+              >
                 <Option value="指数型">指数型</Option>
                 <Option value="混合型">混合型</Option>
                 <Option value="股票型">股票型</Option>
@@ -135,7 +139,6 @@ class FundAdd extends React.Component {
               wrapperCol={{ span: 14 }}>
               <Select
                 id="select"
-                defaultValue="0"
                 style={{ width: 150 }}
                 suffixIcon="%"
               >
@@ -156,7 +159,6 @@ class FundAdd extends React.Component {
               wrapperCol={{ span: 14 }}>
               <Select
                 id="select"
-                defaultValue="1.5"
                 style={{ width: 150 }}
                 suffixIcon="%"
               >
@@ -177,7 +179,6 @@ class FundAdd extends React.Component {
               wrapperCol={{ span: 14 }}>
               <Select
                 id="select"
-                defaultValue="0"
                 style={{ width: 150 }}
                 suffixIcon="%"
               >
@@ -197,7 +198,6 @@ class FundAdd extends React.Component {
               wrapperCol={{ span: 14 }}>
               <Select
                 id="select"
-                defaultValue="0"
                 style={{ width: 150 }}
                 suffixIcon="%"
               >
@@ -212,6 +212,6 @@ class FundAdd extends React.Component {
       </div>
     );
   }
-}
+};
 
 export default FundAdd;

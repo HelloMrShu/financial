@@ -48,7 +48,7 @@ class SectorSelection extends Component {
 
         return (
             <Form.Item
-              name="sector_id"
+              name="Sector_id"
               id="select"
               label="所属板块"
               labelCol={{ span: 4 }}
