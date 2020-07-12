@@ -26,3 +26,14 @@ export async function deleteFund(params) {
 	    requestType: 'form',
     });
 }
+
+export async function updateFund(params) {
+	return request('/api/fund/update', {
+        method: 'POST',
+        data: params,
+        headers: {
+	      'Content-Type': 'application/x-www-form-urlencoded',
+	    },
+	    requestType: 'form',
+    });
+}

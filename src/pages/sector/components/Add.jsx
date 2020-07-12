@@ -1,4 +1,4 @@
-import {React, Component} from 'react';
+import React from 'react';
 import { Button, Modal, Form, Input, Space, message } from 'antd';
 import { saveSector } from '@/services/sector';
 import { connect } from 'dva'
@@ -10,7 +10,7 @@ const layout = {
 
 @connect(() => ({}))
 
-class SectorAdd extends Component {
+class SectorAdd extends React.Component {
   state = { visible: false };
 
   formRef = React.createRef();

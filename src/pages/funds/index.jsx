@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Space, message, Popconfirm, Pagination } from 'antd';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { deleteFund } from '@/services/fund';
+import { deleteFund, updateFund } from '@/services/fund';
 import FundAdd from "./components/Add";
 import FundEditor from "./components/Editor";
 import FundDetail from "./components/Detail";
@@ -79,6 +79,9 @@ class FundIndex extends Component {
                     <Popconfirm key={item.Id} title={`确定删除【${item.Name}】？`} onConfirm={() => this.onDelete(item.Id)}>
                         <a>删除</a>
                     </Popconfirm>
+                    <Popconfirm key={item.Id} title={`加入自选【${item.Name}】？`} onConfirm={() => this.onChecked(item.Id)}>
+                        <a>加入自选</a>
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -105,6 +108,16 @@ class FundIndex extends Component {
 
     onDelete = (id) => {
         deleteFund({ id }).then(({ code }) => {
+            if (code == '200') {
+                this.loadData(this.current, this.pageSize);
+            } else {
+                message.error('服务器数据删除异常');
+            }
+        });
+    };
+
+    onChecked = (id) => {
+        updateFund({ id:id, checked: 1 }).then(({ code }) => {
             if (code == '200') {
                 this.loadData(this.current, this.pageSize);
             } else {

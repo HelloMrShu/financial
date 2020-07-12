@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Pagination, Select, Form } from 'antd';
+import { Select, Form } from 'antd';
 import { connect } from 'dva';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 @connect(({ sectorList, loading }) => ({
     sectorList,
