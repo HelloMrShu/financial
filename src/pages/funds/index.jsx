@@ -76,12 +76,15 @@ class FundIndex extends Component {
                           this.reload();
                         }}
                     />
-                    <Popconfirm key={item.Id} title={`确定删除【${item.Name}】？`} onConfirm={() => this.onDelete(item.Id)}>
-                        <a>删除</a>
-                    </Popconfirm>
-                    <Popconfirm key={item.Id} title={`加入自选【${item.Name}】？`} onConfirm={() => this.onChecked(item.Id)}>
-                        <a>加入自选</a>
-                    </Popconfirm>
+                    {item.Checked ? 
+                        <Popconfirm key={item.Id} title={`取消自选【${item.Name}】？`} onConfirm={() => this.onChecked(item.Id, 0)}>
+                            <a>取消自选</a>
+                        </Popconfirm>
+                    : 
+                        <Popconfirm key={item.Id} title={`加入自选【${item.Name}】？`} onConfirm={() => this.onChecked(item.Id, 1)}>
+                            <a>加入自选</a>
+                        </Popconfirm>
+                    }
                 </Space>
             ),
         },
@@ -116,8 +119,8 @@ class FundIndex extends Component {
         });
     };
 
-    onChecked = (id) => {
-        updateFund({ id:id, checked: 1 }).then(({ code }) => {
+    onChecked = (id, checked) => {
+        updateFund({ id:id, checked: checked }).then(({ code }) => {
             if (code == '200') {
                 this.loadData(this.current, this.pageSize);
             } else {
