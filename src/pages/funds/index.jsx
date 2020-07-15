@@ -6,6 +6,8 @@ import { deleteFund, updateFund } from '@/services/fund';
 import FundAdd from "./components/Add";
 import FundEditor from "./components/Editor";
 import FundDetail from "./components/Detail";
+import styles from './index.less';
+
 
 @connect(({ fundList, loading }) => ({
     fundList,
@@ -42,6 +44,15 @@ class FundIndex extends Component {
             title: '基金名称',
             dataIndex: 'Name',
             key: 'Name',
+            render: (text, item) => (
+                <div>
+                    {item.Name}&emsp;
+                    {item.Checked ?
+                        <span className={styles.favor}>持有</span>
+                    : 
+                    ""}
+                </div>
+            ),
         },
         {
             title: '类型',

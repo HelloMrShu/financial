@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Space, message, Popconfirm, Pagination } from 'antd';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import styles from './index.less';
 
 @connect(({ fundList, loading }) => ({
     fundList,
@@ -55,6 +56,10 @@ class FactorIndex extends Component {
         });
     }
 
+    onChangePage = (current, pageSize) => {
+        this.loadData(current, pageSize);
+    }
+
     componentDidMount() {
         this.loadData(this.current, this.pageSize);
     };
@@ -71,6 +76,7 @@ class FactorIndex extends Component {
             total: pagination.total,
             showSizeChanger: true,
             showTitle: true,
+            onChange: (current) => this.onChangePage(current, this.pageSize),
         };
 
         return (
