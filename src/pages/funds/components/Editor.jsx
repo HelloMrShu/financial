@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Space, message, Select } from 'antd';
+import { Modal, Form, Input, Space, message, Select } from 'antd';
 import { saveFund } from '@/services/fund';
 import { connect } from 'dva'
-import SectorSelection from "./SectorDropdown";
+import SectorSelection from "../../Components/SectorDropdown";
 
 const layout = {
   labelCol: { span: 4 },
@@ -27,14 +27,14 @@ class FundEditor extends Component {
   };
 
   loadData() {
-      const { dispatch } = this.props;
-      dispatch({
-          type: 'fundList/fetch',
-          payload: {
-              page: 1,
-              page_size: 10
-          }
-      });
+    const { dispatch } = this.props;
+    dispatch({
+        type: 'fundList/fetch',
+        payload: {
+            page: 1,
+            page_size: 10
+        }
+    });
   };
 
   componentDidUpdate() {

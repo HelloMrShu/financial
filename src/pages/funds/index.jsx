@@ -8,7 +8,6 @@ import FundEditor from "./components/Editor";
 import FundDetail from "./components/Detail";
 import styles from './index.less';
 
-
 @connect(({ fundList, loading }) => ({
     fundList,
     loading: loading.models.fundList,

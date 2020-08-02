@@ -36,15 +36,7 @@ class SectorSelection extends Component {
             sectorList: { list, pagination },
             loading,
         } = this.props;
-        let paginationProps = {
-            pageSize: pagination.pageSize,
-            current: pagination.current,
-            total: pagination.total,
-            showSizeChanger: true,
-            showTitle: true,
-            onChange: (current) => this.onChangePage(current,pagination.pageSize),
-        };
-
+    
         return (
             <Form.Item
               name="Sector_id"
@@ -57,7 +49,7 @@ class SectorSelection extends Component {
                     optionFilterProp="children"
                     placeholder="请选择板块"
                     >
-                  {list ? list.map((item) => (
+                        {list ? list.map((item) => (
                         <Option value={item.Id}>
                           {item.Name}
                         </Option>
