@@ -67,7 +67,7 @@ class SectorIndex extends Component {
                     <Popconfirm
                         key={item.Id}
                         title={`确定删除【${item.Name}】？`}
-                        onConfirm={() => this.onDelete(item.Id)}
+                        onConfirm={() => this.onDelete(item.ID)}
                         >
                         <a>删除</a>
                     </Popconfirm>
