@@ -47,7 +47,7 @@ class SectorEditor extends Component {
 
   onFinish = ( data ) => {
     saveSector({
-      id: data.Id,
+      id: data.ID,
       name: data.Name,
       intro: data.Intro
     }).then(({ code }) => {
@@ -95,7 +95,7 @@ class SectorEditor extends Component {
               initialValues={sector}
             >
             
-            <Form.Item name="Id" noStyle>
+            <Form.Item name="ID" noStyle>
               <Input type="hidden" />
             </Form.Item>
 
